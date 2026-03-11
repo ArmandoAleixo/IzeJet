@@ -31,4 +31,5 @@ graphiql:true
 
 app.listen(process.env.PORT,()=>{
 console.log("Servidor rodando na porta " + process.env.PORT);
+console.log("Acesse http://localhost:" + process.env.PORT + "/graphql para usar o GraphQL");
 });
