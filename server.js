@@ -12,8 +12,21 @@ const reservas = require("./routes/reservas");
 
 const app = express();
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB conectado com sucesso!"))
+const mongoUri = process.env.MONGO_URI;
+const mongoDbName = process.env.MONGO_DB_NAME;
+
+if (!mongoUri) {
+  console.error("MONGO_URI não definida no arquivo .env");
+  process.exit(1);
+}
+
+const mongoOptions = mongoDbName ? { dbName: mongoDbName } : {};
+
+mongoose.connect(mongoUri, mongoOptions)
+  .then(() => {
+    console.log("MongoDB conectado com sucesso!");
+    console.log(`Banco em uso: ${mongoose.connection.name}`);
+  })
   .catch(err => console.error("Erro ao conectar no MongoDB:", err));
 
 app.use(cors());

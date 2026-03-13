@@ -20,7 +20,11 @@ router.post("/", auth, async (req, res) => {
         await item.save();
         res.status(201).json(item);
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor." });
+        console.error("Erro ao criar item no catálogo:", err);
+        res.status(500).json({
+            msg: "Erro no servidor.",
+            erro: err.message
+        });
     }
 });
 
@@ -29,7 +33,11 @@ router.get("/", async (req, res) => {
         const itens = await Catalogo.find();
         res.json(itens);
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor." });
+        console.error("Erro ao buscar catálogo:", err);
+        res.status(500).json({
+            msg: "Erro no servidor.",
+            erro: err.message
+        });
     }
 });
 
@@ -49,7 +57,11 @@ router.put("/:id", auth, async (req, res) => {
         await item.save();
         res.json(item);
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor." });
+        console.error("Erro ao atualizar item do catálogo:", err);
+        res.status(500).json({
+            msg: "Erro no servidor.",
+            erro: err.message
+        });
     }
 });
 
@@ -64,7 +76,11 @@ router.delete("/:id", auth, async (req, res) => {
         await item.deleteOne();
         res.json({ msg: "Item removido do catálogo." });
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor." });
+        console.error("Erro ao remover item do catálogo:", err);
+        res.status(500).json({
+            msg: "Erro no servidor.",
+            erro: err.message
+        });
     }
 });
 

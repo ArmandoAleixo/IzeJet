@@ -38,7 +38,11 @@ router.post("/register", async (req, res) => {
             cpf: usuario.cpf
         });
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor ao registrar usuário." });
+        console.error("Erro ao registrar usuário:", err);
+        res.status(500).json({
+            msg: "Erro no servidor ao registrar usuário.",
+            erro: err.message
+        });
     }
 });
 
@@ -77,7 +81,11 @@ router.post("/login", async (req, res) => {
             }
         });
     } catch (err) {
-        res.status(500).json({ msg: "Erro no servidor ao fazer login." });
+        console.error("Erro ao fazer login:", err);
+        res.status(500).json({
+            msg: "Erro no servidor ao fazer login.",
+            erro: err.message
+        });
     }
 });
 
